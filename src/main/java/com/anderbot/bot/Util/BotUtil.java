@@ -1,4 +1,4 @@
-package com.anderbot.bot;
+package com.anderbot.bot.Util;
 
 import sx.blah.discord.api.ClientBuilder;
 import sx.blah.discord.api.IDiscordClient;

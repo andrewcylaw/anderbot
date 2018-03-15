@@ -17,4 +17,8 @@ targetCompatibility = 1.8
 dependencies {
     compile group: 'com.github.austinv11', name: 'Discord4J', version: '2.10'
     compile group: 'com.sedmelluq', name: 'lavaplayer', version: '1.2.56'
+
+    compile group: 'org.springframework', name: 'spring-core', version: '5.0.4.RELEASE'
+    compile group: 'org.springframework', name: 'spring-beans', version: '5.0.4.RELEASE'
+    compile group: 'org.springframework', name: 'spring-context', version: '5.0.4.RELEASE'
 }

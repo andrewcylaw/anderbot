@@ -17,6 +17,9 @@ targetCompatibility = 1.8
 dependencies {
     compile group: 'com.github.austinv11', name: 'Discord4J', version: '2.10'
     compile group: 'com.sedmelluq', name: 'lavaplayer', version: '1.2.56'
+//     compile group: 'com.vdurmon', name: 'emoji-java', version: '4.0.0'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.11.0'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.11.0'
 
     compile group: 'org.springframework', name: 'spring-core', version: '5.0.4.RELEASE'
     compile group: 'org.springframework', name: 'spring-beans', version: '5.0.4.RELEASE'

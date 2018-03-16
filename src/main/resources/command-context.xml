@@ -4,15 +4,19 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!-- Individual command bean definitions -->
-    <bean id="sampleCommand" class="com.anderbot.bot.command.SampleCommand">
-        <constructor-arg type="java.lang.String" value="test"/>
+    <bean id="dumpOnCommand" class="com.anderbot.bot.command.dumpon.DumpOnCommand">
+        <constructor-arg type="java.lang.String" value="dumpOn"/>
+    </bean>
+
+    <bean id="stopDumpCommand" class="com.anderbot.bot.command.dumpon.StopDumpCommand">
+        <constructor-arg type="java.lang.String" value="stopDump"/>
     </bean>
 
     <!-- Register all commands that are available -->
     <bean id="commandHandler" class="com.anderbot.bot.CommandHandler">
         <constructor-arg>
             <list>
-                <ref bean="sampleCommand"/>
+                <ref bean="dumpOnCommand"/>
             </list>
         </constructor-arg>
     </bean>

@@ -2,7 +2,9 @@ package com.anderbot.bot.util;
 
 import sx.blah.discord.api.ClientBuilder;
 import sx.blah.discord.api.IDiscordClient;
+import sx.blah.discord.handle.impl.obj.ReactionEmoji;
 import sx.blah.discord.handle.obj.IChannel;
+import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.util.DiscordException;
 import sx.blah.discord.util.RequestBuffer;
 
@@ -11,7 +13,7 @@ import sx.blah.discord.util.RequestBuffer;
  *
  * Created by andrew.law on 3/15/2018.
  */
-public class BotUtil {
+public class BotUtils {
 
     public static IDiscordClient getClient(String token) {
         return new ClientBuilder()
@@ -27,6 +29,10 @@ public class BotUtil {
                     e.printStackTrace();
                 }
             });
+    }
+
+    public static void reactToMessage(IMessage message, ReactionEmoji emoji) {
+        message.addReaction(emoji);
     }
 
 }

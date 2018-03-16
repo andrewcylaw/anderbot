@@ -1,8 +1,11 @@
 package com.anderbot.bot;
 
 
-import com.anderbot.bot.Util.BotUtil;
+import com.anderbot.bot.util.BotUtil;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ImportResource;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.api.events.EventDispatcher;
 import sx.blah.discord.api.events.IListener;
@@ -15,16 +18,19 @@ import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedE
  */
 public class Main {
 
-    private ApplicationContext applicationContext;
+    private static final String contextFile = "command-context.xml";
 
     public static void main(String[] args) {
-        IDiscordClient sampleClient = BotUtil.getClient("dummy token");
-        sampleClient.login();
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext(contextFile);
 
-        EventDispatcher dispatcher = sampleClient.getDispatcher();
+        IDiscordClient sampleClient = BotUtil.getClient("dummy token");
         IListener<MessageReceivedEvent> listener = new MessageEventListener();
 
-        dispatcher.registerListener(listener);
+        sampleClient.getDispatcher().registerListener(listener);
+        sampleClient.login();
+
+        // -----
+
     }
 
 }

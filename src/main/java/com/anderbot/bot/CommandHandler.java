@@ -1,6 +1,6 @@
 package com.anderbot.bot;
 
-import com.anderbot.bot.Util.CommandResponseCode;
+import com.anderbot.bot.util.CommandResponseCode;
 import com.anderbot.bot.command.Command;
 import sx.blah.discord.api.events.Event;
 

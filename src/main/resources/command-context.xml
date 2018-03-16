@@ -3,6 +3,11 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <!-- Individual command bean definitions -->
+    <bean id="sampleCommand" class="com.anderbot.bot.command.SampleCommand">
+        <constructor-arg type="java.lang.String" value="test"/>
+    </bean>
+
     <!-- Register all commands that are available -->
     <bean id="commandHandler" class="com.anderbot.bot.CommandHandler">
         <constructor-arg>
@@ -12,9 +17,5 @@
         </constructor-arg>
     </bean>
 
-    <!-- Individual command bean definitions -->
-    <bean id="sampleCommand" class="com.anderbot.bot.command.SampleCommand">
-        <constructor-arg type="java.lang.String" value="test"/>
-    </bean>
 
 </beans>

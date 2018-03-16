@@ -1,4 +1,4 @@
-package com.anderbot.bot.Util;
+package com.anderbot.bot.util;
 
 /**
  * Command response codes, which allow the handlers and commands to fail (a bit more) gracefully.

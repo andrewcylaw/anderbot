@@ -1,6 +1,7 @@
 package com.anderbot.bot.command;
 
-import com.anderbot.bot.Util.CommandResponseCode;
+import com.anderbot.bot.util.BotUtil;
+import com.anderbot.bot.util.CommandResponseCode;
 import sx.blah.discord.api.events.Event;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 
@@ -23,12 +24,12 @@ public class SampleCommand implements Command {
         return this.identifier;
     }
 
-    // TODO - perhaps this should be string args?
     @Override
     public CommandResponseCode handle(Event event) {
         MessageReceivedEvent msgEvent = (MessageReceivedEvent) event;
 
-        // do something
+        // At this point, the command and prefix have been verified correctly
+        BotUtil.sendMessage(((MessageReceivedEvent) event).getChannel(), "The message received from SampleCommand was " + msgEvent.getMessage());
 
         return CommandResponseCode.OK;
     }

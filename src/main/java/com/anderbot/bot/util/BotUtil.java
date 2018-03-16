@@ -1,4 +1,4 @@
-package com.anderbot.bot.Util;
+package com.anderbot.bot.util;
 
 import sx.blah.discord.api.ClientBuilder;
 import sx.blah.discord.api.IDiscordClient;
@@ -12,8 +12,6 @@ import sx.blah.discord.util.RequestBuffer;
  * Created by andrew.law on 3/15/2018.
  */
 public class BotUtil {
-
-    static String BOT_PREFIX = "/";
 
     public static IDiscordClient getClient(String token) {
         return new ClientBuilder()

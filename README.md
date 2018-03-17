@@ -2,7 +2,16 @@
 experimental discord bot
 
 ## Roadmap
-- User utils
-- Generic error response
-- Bot storage via JSON flat files and Jackson integration
--- Bot initialization storage on members, emojis, rooms, etc 
+In no particular order:
+- Finish the "dump" command
+- Improve how command statuses are passed
+- Centralize all generic message responses
+- Help command
+- Somewhere to store magic strings
+- Tokens via command line argument instead
+- Move changelog to its own file
+
+## Changelog
+1.0-SNAPSHOT:
+ - Initial version!
+ - Added commands "dump"

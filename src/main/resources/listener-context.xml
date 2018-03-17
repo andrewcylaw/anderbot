@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <import resource="command-context.xml"/>
+
+    <!-- Individual listener bean definitions -->
+    <bean id="dumpCommandListener" class="com.anderbot.bot.listener.command.DumpCommandListener">
+        <constructor-arg ref="dumpCommand"/>
+    </bean>
+
+    <bean id="mainEventListener" class="com.anderbot.bot.listener.MainEventListener">
+        <constructor-arg ref="commandHandler"/>
+    </bean>
+
+    <!-- Register all listeners that are available -->
+    <bean id="listenerHandler" class="com.anderbot.bot.ListenerHandler">
+        <constructor-arg>
+            <list>
+                <ref bean="dumpCommandListener"/>
+                <ref bean="mainEventListener"/>
+            </list>
+        </constructor-arg>
+    </bean>
+
+
+</beans>

@@ -21,18 +21,28 @@ public class BotUtils {
                 .build();
     }
 
-    public static void sendMessage(IChannel channel, String message) {
+    public static void sendMessage(IChannel channel, String message) throws DiscordException {
             RequestBuffer.request(() -> {
                 try {
                     channel.sendMessage(message);
                 } catch (DiscordException e) {
                     e.printStackTrace();
+                    throw e;
                 }
             });
     }
 
-    public static void reactToMessage(IMessage message, ReactionEmoji emoji) {
-        message.addReaction(emoji);
+    /*
+    Note: Unused in DumpCommand because that requires additional checks on the return.
+     */
+    public static void reactToMessage(IMessage message, ReactionEmoji emoji) throws DiscordException {
+        RequestBuffer.request(() -> {
+            try {
+                message.addReaction(emoji);
+            } catch (DiscordException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
 }

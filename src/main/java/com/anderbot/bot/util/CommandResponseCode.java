@@ -6,8 +6,7 @@ package com.anderbot.bot.util;
  * Created by andrew.law on 3/15/2018.
  */
 public enum CommandResponseCode {
-    FAILED_INTERNAL ("[error] Internal bot error"),
-    FAILED_INVALID_COMMAND ("[error] Invalid command given"),
+    FAILED_INVALID_COMMAND ("[error] Invalid command given."),
     OK ("");
 
     String message;

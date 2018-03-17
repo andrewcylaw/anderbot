@@ -1,6 +1,7 @@
 package com.anderbot.bot;
 
 
+import com.anderbot.bot.listener.MainEventListener;
 import com.anderbot.bot.util.BotUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -20,7 +21,7 @@ public class MainRunner {
 
     // TODO - parse this via command args instead
     private static final String TOKEN = "";
-    private MessageEventListener messageEventListener;
+    private ListenerHandler listenerHandler;
 
     public static void main(String[] args) {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext(CONTEXT);
@@ -32,13 +33,13 @@ public class MainRunner {
     private void initBot(String token) {
         IDiscordClient client = BotUtils.getClient(token);
 
-        client.getDispatcher().registerListener(messageEventListener);
+        listenerHandler.getListeners().forEach(l -> client.getDispatcher().registerListener(l));
         client.login();
     }
 
     @Autowired
-    public void setMessageEventListener(MessageEventListener messageEventListener) {
-        this.messageEventListener = messageEventListener;
+    public void setListenerHandler(ListenerHandler listenerHandler) {
+        this.listenerHandler = listenerHandler;
     }
 
 }

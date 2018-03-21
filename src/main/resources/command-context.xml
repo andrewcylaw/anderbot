@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <context:property-placeholder location="classpath:command.properties" />
+    <import resource="help-context.xml"/>
 
     <!-- Individual command bean definitions -->
     <bean id="dumpCommand" class="com.anderbot.bot.command.dump.DumpCommand">
-        <constructor-arg type="java.lang.String" value="dump"/>
+        <constructor-arg type="java.lang.String" value="${command.dump}"/>
+    </bean>
+
+    <util:map id="helpCommandMap" map-class="java.util.HashMap">
+        <entry key="${command.dump}" value-ref="dumpHelp"/>
+    </util:map>
+
+    <bean id="helpCommand" class="com.anderbot.bot.command.help.HelpCommand">
+        <constructor-arg type="java.lang.String" value="${command.help}"/>
+        <property name="embeddedHelpMap" ref="helpCommandMap"/>
     </bean>
 
     <!-- Register all commands that are available -->
@@ -13,6 +27,7 @@
         <constructor-arg>
             <list>
                 <ref bean="dumpCommand"/>
+                <ref bean="helpCommand"/>
             </list>
         </constructor-arg>
     </bean>

@@ -1,7 +1,9 @@
 package com.anderbot.bot.util;
 
+import com.anderbot.bot.message.help.EmbeddedHelp;
 import sx.blah.discord.api.ClientBuilder;
 import sx.blah.discord.api.IDiscordClient;
+import sx.blah.discord.api.internal.json.objects.EmbedObject;
 import sx.blah.discord.handle.impl.obj.ReactionEmoji;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
@@ -21,15 +23,27 @@ public class BotUtils {
                 .build();
     }
 
+    // TODO - clean this up
     public static void sendMessage(IChannel channel, String message) throws DiscordException {
-            RequestBuffer.request(() -> {
-                try {
-                    channel.sendMessage(message);
-                } catch (DiscordException e) {
-                    e.printStackTrace();
-                    throw e;
-                }
-            });
+        RequestBuffer.request(() -> {
+            try {
+                channel.sendMessage(message);
+            } catch (DiscordException e) {
+                e.printStackTrace();
+                throw e;
+            }
+        });
+    }
+
+    public static void sendMessage(IChannel channel, EmbeddedHelp embeddedHelp) {
+        RequestBuffer.request(() -> {
+            try {
+                channel.sendMessage(embeddedHelp.getEmbeddedHelp());
+            } catch (DiscordException e) {
+                e.printStackTrace();
+                throw e;
+            }
+        });
     }
 
     /*

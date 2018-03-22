@@ -19,10 +19,8 @@ import java.util.*;
 
 /**
  * "Dumps" on a specific user by reacting to every message that they post.
- * (Does not react to other commands to this bot)
  *
- * Syntax: dump [start|stop|clear|check] user
- *              [add] user emoji
+ * See {@link com.anderbot.bot.message.help.DumpHelp} for syntax and usage.
  *
  * Created by andrew.law on 3/15/2018.
  */
@@ -30,7 +28,6 @@ public class DumpCommand extends AbstractCommand implements Command {
 
     private Map<IUser, Set<ReactionEmoji>> dumpEmoji; // Emojis to dump with (anderbot can only react with emoji once)
     private Map<IUser, DumpStatus> dumpStatus; // Users being dumped on
-
 
     protected DumpCommand(String identifier) {
         super(identifier);
@@ -86,7 +83,7 @@ public class DumpCommand extends AbstractCommand implements Command {
     public CommandResponseCode dump(MessageReceivedEvent event) {
         IUser user = event.getAuthor();
 
-        if(dumpStatus.get(user) != null && dumpStatus.get(user).equals(DumpStatus.STARTED)) {
+        if(dumpEmoji.get(user) != null && dumpStatus.get(user) != null && dumpStatus.get(user).equals(DumpStatus.STARTED)) {
             dumpEmoji.get(user).forEach(em -> RequestBuffer.request(() -> {
                 try {
                     event.getMessage().addReaction(em);
@@ -98,8 +95,6 @@ public class DumpCommand extends AbstractCommand implements Command {
                 }
             }));
         }
-
-
 
         return CommandResponseCode.OK;
     }

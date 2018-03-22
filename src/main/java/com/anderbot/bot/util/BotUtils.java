@@ -3,7 +3,6 @@ package com.anderbot.bot.util;
 import com.anderbot.bot.message.help.EmbeddedHelp;
 import sx.blah.discord.api.ClientBuilder;
 import sx.blah.discord.api.IDiscordClient;
-import sx.blah.discord.api.internal.json.objects.EmbedObject;
 import sx.blah.discord.handle.impl.obj.ReactionEmoji;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IMessage;
@@ -11,7 +10,7 @@ import sx.blah.discord.util.DiscordException;
 import sx.blah.discord.util.RequestBuffer;
 
 /**
- * Bot utilities. Code referenced from Discord4J's basic-bot.
+ * Utilities for bot operations. Code referenced from Discord4J's basic-bot.
  *
  * Created by andrew.law on 3/15/2018.
  */
@@ -30,7 +29,6 @@ public class BotUtils {
                 channel.sendMessage(message);
             } catch (DiscordException e) {
                 e.printStackTrace();
-                throw e;
             }
         });
     }
@@ -41,14 +39,10 @@ public class BotUtils {
                 channel.sendMessage(embeddedHelp.getEmbeddedHelp());
             } catch (DiscordException e) {
                 e.printStackTrace();
-                throw e;
             }
         });
     }
 
-    /*
-    Note: Unused in DumpCommand because that requires additional checks on the return.
-     */
     public static void reactToMessage(IMessage message, ReactionEmoji emoji) throws DiscordException {
         RequestBuffer.request(() -> {
             try {

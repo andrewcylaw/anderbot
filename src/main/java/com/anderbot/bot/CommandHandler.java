@@ -27,7 +27,7 @@ public class CommandHandler {
     public CommandResponseCode handle(String identifier, Event event) {
         Command cmd = commandMap.get(identifier.toLowerCase());
 
-        return cmd == null ? CommandResponseCode.FAILED_INVALID_COMMAND : cmd.handle(event);
+        return cmd == null ? CommandResponseCode.NOT_A_COMMAND : cmd.handle(event);
     }
 
 }

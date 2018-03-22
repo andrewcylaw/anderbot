@@ -19,7 +19,7 @@ public class MessageUtils {
         return message.getContent().startsWith(BOT_PREFIX);
     }
 
-    public static String getCommand(IMessage message) {
+    public static String getCommandIdentifier(IMessage message) {
         String command = getMessageTokens(message).get(0);
 
         return command.substring(1, command.length());
@@ -30,7 +30,6 @@ public class MessageUtils {
 
         return args.subList(1, args.size());
     }
-
 
     private static List<String> getMessageTokens(IMessage message) {
         return Arrays.asList(message.getContent().split(ARG_DELIMITER));

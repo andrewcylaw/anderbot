@@ -3,19 +3,19 @@ package com.anderbot.bot.command.dump;
 import com.anderbot.bot.command.AbstractCommand;
 import com.anderbot.bot.command.Command;
 import com.anderbot.bot.util.BotUtils;
+import com.anderbot.bot.util.ChatUtils;
 import com.anderbot.bot.util.CommandResponseCode;
-import com.anderbot.bot.util.GuildUtils;
 import com.anderbot.bot.util.MessageUtils;
+import com.vdurmont.emoji.EmojiManager;
 import sx.blah.discord.api.events.Event;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 import sx.blah.discord.handle.impl.obj.ReactionEmoji;
 import sx.blah.discord.handle.obj.IGuild;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IUser;
-import sx.blah.discord.util.DiscordException;
-import sx.blah.discord.util.RequestBuffer;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * "Dumps" on a specific user by reacting to every message that they post.
@@ -43,22 +43,23 @@ public class DumpCommand extends AbstractCommand implements Command {
         List<String> args = MessageUtils.getArgs(message);
 
         if(args.size() < 2) {
-            return CommandResponseCode.FAILED_INVALID_COMMAND;
+            return CommandResponseCode.INVALID_COMMAND;
         }
 
-        IUser targetUser = GuildUtils.getUserFromMention(guild, args.get(1));
-
+        IUser targetUser = ChatUtils.getUserFromMention(guild, args.get(1));
         if(targetUser == null) {
-            return CommandResponseCode.FAILED_INVALID_COMMAND;
+            return CommandResponseCode.INVALID_USER;
         }
 
         switch(args.get(0).toLowerCase()) {
             case "add":
                 if(args.size() < 3) {
-                    return CommandResponseCode.FAILED_INVALID_COMMAND;
+                    return CommandResponseCode.INVALID_COMMAND;
+                } else if (!EmojiManager.isEmoji(args.get(2))) {
+                    return CommandResponseCode.INVALID_EMOJI;
                 }
+
                 this.dumpAdd(targetUser, ReactionEmoji.of(args.get(2)));
-                this.dump(messageReceivedEvent);
                 break;
             case "clear":
                 this.dumpClear(targetUser);
@@ -73,7 +74,7 @@ public class DumpCommand extends AbstractCommand implements Command {
                 this.dumpCheck(targetUser, messageReceivedEvent);
                 break;
             default:
-                return CommandResponseCode.FAILED_INVALID_COMMAND;
+                return CommandResponseCode.INVALID_COMMAND;
         }
 
         return CommandResponseCode.OK;
@@ -84,16 +85,7 @@ public class DumpCommand extends AbstractCommand implements Command {
         IUser user = event.getAuthor();
 
         if(dumpEmoji.get(user) != null && dumpStatus.get(user) != null && dumpStatus.get(user).equals(DumpStatus.STARTED)) {
-            dumpEmoji.get(user).forEach(em -> RequestBuffer.request(() -> {
-                try {
-                    event.getMessage().addReaction(em);
-                } catch (DiscordException e) {
-                    // Remove invalid emojis
-                    BotUtils.sendMessage(event.getChannel(), "[error] Invalid emoji provided");
-                    dumpEmoji.get(user).remove(em);
-                    e.printStackTrace();
-                }
-            }));
+            dumpEmoji.get(user).forEach(em -> BotUtils.reactToMessage(event.getMessage(), em));
         }
 
         return CommandResponseCode.OK;
@@ -117,10 +109,16 @@ public class DumpCommand extends AbstractCommand implements Command {
     }
 
     private void dumpCheck(IUser user, MessageReceivedEvent event) {
-        StringBuilder collectEmoji = new StringBuilder();
-        dumpEmoji.get(user).forEach(e -> collectEmoji.append(e.getName()));
+        if(dumpEmoji.get(user) != null && !dumpEmoji.get(user).isEmpty()) {
+            String emojis = dumpEmoji.get(user)
+                    .stream()
+                    .map(ReactionEmoji::getName)
+                    .collect(Collectors.joining());
 
-        BotUtils.sendMessage(event.getChannel(), String.format("User [%s] is being dumped on with the following: %s", user.getName(), collectEmoji.toString()));
+            BotUtils.sendMessage(event.getChannel(), String.format("User [%s] is being dumped on with the following: %s", user.getName(), emojis));
+        } else {
+            BotUtils.sendMessage(event.getChannel(), String.format("User [%s] is not being dumped on by any emojis at the moment. Why not add some? :clap:", user.getName()));
+        }
     }
 
 }

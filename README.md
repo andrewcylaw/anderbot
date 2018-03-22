@@ -3,15 +3,17 @@ experimental discord bot
 
 ## Roadmap
 In no particular order:
-- Finish the "dump" command
 - Improve how command statuses are passed
 - Centralize all generic message responses
-- Help command
 - Somewhere to store magic strings
 - Tokens via command line argument instead
-- Move changelog to its own file
+- Easy commands: help, dump, dice, 8 ball, fortune telling, Spongebob meme
+- Hard commands: bilge dice, othello, stock market, blackjack, other gambling bots
+
+## Other Small things
+- Dumping on for x amount of messages
 
 ## Changelog
 1.0-SNAPSHOT:
  - Initial version!
- - Added commands "dump"
+ - Added commands "dump", "help"

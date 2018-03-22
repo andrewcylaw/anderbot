@@ -6,8 +6,12 @@ package com.anderbot.bot.util;
  * Created by andrew.law on 3/15/2018.
  */
 public enum CommandResponseCode {
-    FAILED_INVALID_COMMAND ("[error] Invalid command given."),
-    OK ("");
+    INVALID_COMMAND (":x:**[error]** Invalid command given. Please check that you are using the right number of arguments"),
+    INVALID_USER    (":x:**[error]** Invalid user given."),
+    INVALID_EMOJI   (":x:**[error]** Invalid emoji given."),
+    INVALID_HELP    (":x:**[error]** Invalid command given."),
+    NOT_A_COMMAND   (""),
+    OK              ("");
 
     String message;
 

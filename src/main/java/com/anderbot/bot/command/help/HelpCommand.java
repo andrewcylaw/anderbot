@@ -32,14 +32,14 @@ public class HelpCommand extends AbstractCommand implements Command {
         EmbeddedHelp embeddedHelp;
 
         if(args.isEmpty() || (embeddedHelp = embeddedHelpMap.get(args.get(0))) == null) {
-            return CommandResponseCode.FAILED_INVALID_COMMAND;
+            return CommandResponseCode.INVALID_COMMAND;
         }
 
         try {
             BotUtils.sendMessage(messageReceivedEvent.getChannel(), embeddedHelp);
         } catch (DiscordException e) {
             e.printStackTrace();
-            return CommandResponseCode.FAILED_INVALID_COMMAND;
+            return CommandResponseCode.INVALID_HELP;
         }
 
         return CommandResponseCode.OK;

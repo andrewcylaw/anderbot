@@ -10,6 +10,7 @@ public enum CommandResponseCode {
     INVALID_USER    (":x:**[error]** Invalid user given."),
     INVALID_EMOJI   (":x:**[error]** Invalid emoji given."),
     INVALID_HELP    (":x:**[error]** Invalid command given."),
+    INVALID_NUMBER  (":x:**[error]** Invalid number given."),
     NOT_A_COMMAND   (""),
     OK              ("");
 

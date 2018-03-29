@@ -9,22 +9,20 @@ public class DumpHelp implements EmbeddedHelp {
 
     @Override
     public EmbedObject getEmbeddedHelp() {
-        EmbedBuilder builder = new EmbedBuilder();
+        EmbedBuilder embedBuilder = new EmbedBuilder();
 
-        builder.withTitle("`>dump`");
-        builder.withDescription("anderbot \"dumps\" on users by reacting to every message that certain users send messages in chat. Please use the @user annotation when adding a user.");
-        builder.withFooterText("Examples: >dump add @anderbot :key: | >dump stop @anderbot");
-        builder.appendField("\u200B\n--", "\u200B", false);
+        embedBuilder.withTitle("`>dump`")
+                .withDescription("anderbot \"dumps\" on users by reacting to every message that certain users send messages in chat. Please use the @user annotation when adding a user.")
+                .withFooterText("Examples: >dump add @anderbot :key: | >dump stop @anderbot")
+                .appendField("\u200B\n--", "\u200B", false)
+                .appendField("`add <user> <emoji>`", "Adds the given emoji to the list of emoji to dump on the user with.\n\u200B", false)
+                .appendField("clear <user>", "Removes all the emojis that are currently being dumped on the given user.\n\u200B", false)
+                .appendField("start | stop <user>", "Tells anderbot to either start or stop dumping on the given user." +
+                        "Does not add or remove any of the emojis that are being dumped on the given user.\n\u200B", false)
+                .appendField("`check <user>`", "Prints all of the emojis that are being dumped on right now for a given user.", false)
+                .appendField("\u200B", "--", false);
 
-        // Descriptions of each option
-        builder.appendField("`add <user> <emoji>`", "Adds the given emoji to the list of emoji to dump on the user with.\n\u200B", false);
-        builder.appendField("clear <user>", "Removes all the emojis that are currently being dumped on the given user.\n\u200B", false);
-        builder.appendField("start | stop <user>", "Tells anderbot to either start or stop dumping on the given user." +
-                "Does not add or remove any of the emojis that are being dumped on the given user.\n\u200B", false);
-        builder.appendField("`check <user>`", "Prints all of the emojis that are being dumped on right now for a given user.", false);
-
-        builder.appendField("\u200B", "--", false);
-        return builder.build();
+        return embedBuilder.build();
     }
 
 }

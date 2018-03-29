@@ -7,7 +7,7 @@ In no particular order:
 - Centralize all generic message responses
 - Somewhere to store magic strings
 - Tokens via command line argument instead
-- Easy commands: help, dump, dice, 8 ball, fortune telling, Spongebob meme
+- Easy commands: help, dump, dice (+coin flip), 8 ball, fortune telling, Spongebob meme
 - Hard commands: bilge dice, othello, stock market, blackjack, other gambling bots
 
 ## Other Small things

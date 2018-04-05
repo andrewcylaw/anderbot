@@ -7,8 +7,8 @@ In no particular order:
 - Centralize all generic message responses
 - Somewhere to store magic strings
 - Tokens via command line argument instead
-- Easy commands: help, dump, dice (+coin flip), 8 ball, fortune telling, Spongebob meme
-- Hard commands: bilge dice, othello, stock market, blackjack, other gambling bots
+- Easy commands: help, dump, roll (+coin flip), 8 ball, fortune telling, Spongebob meme
+- Hard commands: bilge dice, othello, stock market, blackjack, other gambling bots, full rpg?
 
 ## Other Small things
 - Dumping on for x amount of messages
@@ -16,4 +16,4 @@ In no particular order:
 ## Changelog
 1.0-SNAPSHOT:
  - Initial version!
- - Added commands "dump", "help"
+ - Added commands "dump", "help", "roll"

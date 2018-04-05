@@ -13,14 +13,14 @@
         <constructor-arg type="java.lang.String" value="${command.dump}"/>
     </bean>
 
-    <bean id="diceCommand" class="com.anderbot.bot.command.dice.DiceCommand">
-        <constructor-arg type="java.lang.String" value="${command.dice}"/>
+    <bean id="rollCommand" class="com.anderbot.bot.command.roll.RollCommand">
+        <constructor-arg type="java.lang.String" value="${command.roll}"/>
     </bean>
 
     <!-- Help command -->
     <util:map id="helpCommandMap" map-class="java.util.HashMap">
         <entry key="${command.dump}" value-ref="dumpHelp"/>
-        <entry key="${command.dice}" value-ref="diceHelp"/>
+        <entry key="${command.roll}" value-ref="rollHelp"/>
     </util:map>
 
     <bean id="helpCommand" class="com.anderbot.bot.command.help.HelpCommand">
@@ -32,7 +32,7 @@
     <bean id="commandHandler" class="com.anderbot.bot.CommandHandler">
         <constructor-arg>
             <list>
-                <ref bean="diceCommand"/>
+                <ref bean="rollCommand"/>
                 <ref bean="dumpCommand"/>
                 <ref bean="helpCommand"/>
             </list>

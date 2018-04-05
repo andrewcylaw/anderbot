@@ -1,4 +1,4 @@
-package com.anderbot.bot.command.dice;
+package com.anderbot.bot.command.roll;
 
 import com.anderbot.bot.command.AbstractCommand;
 import com.anderbot.bot.command.Command;
@@ -10,26 +10,23 @@ import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedE
 import sx.blah.discord.handle.obj.IMessage;
 
 import java.util.List;
-import java.util.StringJoiner;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * Every bot needs a good dice utility.
+ * Every bot needs a good roll utility.
  *
  * Notes:
- * >roll dice-size num-times
+ * >roll roll-size num-times
  *   - defaults to 6-sided once if no args
- *   - defaults to dice-size once if one arg
- * Created by andrew.law on 3/26/2018.
+ *   - defaults to roll-size once if one arg
  *
- * TODO - is the command dice or roll? Make up your damn mind...
  */
-public class DiceCommand extends AbstractCommand implements Command {
+public class RollCommand extends AbstractCommand implements Command {
 
     private static int DEFAULT_DICE_SIZE = 6;
     private static int DEFAULT_NUM_ROLLS = 1;
 
-    public DiceCommand(String identifier) {
+    public RollCommand(String identifier) {
         super(identifier);
     }
 

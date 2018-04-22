@@ -21,7 +21,7 @@ public class CommandHandler {
 
     private CommandHandler(List<Command> commands) {
         this.commandMap = new HashMap<>();
-        commands.forEach(c -> this.commandMap.put(c.getIdentifier().toLowerCase(), c));
+        commands.forEach(c -> c.getIdentifiers().forEach(i -> this.commandMap.put(i.toLowerCase(), c)));
     }
 
     public CommandResponseCode handle(String identifier, Event event) {

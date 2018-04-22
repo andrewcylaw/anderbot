@@ -7,10 +7,7 @@ import com.anderbot.bot.util.BotUtils;
 import com.anderbot.bot.util.CommandResponseCode;
 import com.anderbot.bot.util.MessageUtils;
 import sx.blah.discord.api.events.Event;
-import sx.blah.discord.api.internal.json.objects.EmbedObject;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
-import sx.blah.discord.handle.obj.IGuild;
-import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.util.DiscordException;
 
 import java.util.HashMap;

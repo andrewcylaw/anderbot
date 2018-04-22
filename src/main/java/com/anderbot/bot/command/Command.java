@@ -3,6 +3,8 @@ package com.anderbot.bot.command;
 import com.anderbot.bot.util.CommandResponseCode;
 import sx.blah.discord.api.events.Event;
 
+import java.util.List;
+
 /**
  * Bot command interface / event handler, implemented by all commands that anderbot expects to receive.
  *
@@ -10,7 +12,7 @@ import sx.blah.discord.api.events.Event;
  */
 public interface Command {
 
-    String getIdentifier();
+    List<String> getIdentifiers();
 
     CommandResponseCode handle(Event event);
 

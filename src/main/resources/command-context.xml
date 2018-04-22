@@ -17,6 +17,15 @@
         <constructor-arg type="java.lang.String" value="${command.roll}"/>
     </bean>
 
+    <bean id="blackjackCommand" class="com.anderbot.bot.command.blackjack.card.BlackjackCommand">
+        <constructor-arg>
+            <list>
+                <value>${command.blackjack}</value>
+                <value>${command.bj}</value>
+            </list>
+        </constructor-arg>
+    </bean>
+
     <!-- Help command -->
     <util:map id="helpCommandMap" map-class="java.util.HashMap">
         <entry key="${command.dump}" value-ref="dumpHelp"/>
@@ -35,6 +44,7 @@
                 <ref bean="rollCommand"/>
                 <ref bean="dumpCommand"/>
                 <ref bean="helpCommand"/>
+                <ref bean="blackjackCommand"/>
             </list>
         </constructor-arg>
     </bean>

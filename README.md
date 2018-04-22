@@ -9,6 +9,8 @@ In no particular order:
 - Tokens via command line argument instead
 - Easy commands: help, dump, roll (+coin flip), 8 ball, fortune telling, Spongebob meme
 - Hard commands: bilge dice, othello, stock market, blackjack, other gambling bots, full rpg?
+- Stats
+- osu! api integration (?)
 
 ## Other Small things
 - Dumping on for x amount of messages

@@ -29,7 +29,7 @@ public class DumpCommand extends AbstractCommand implements Command {
     private Map<IUser, Set<ReactionEmoji>> dumpEmoji; // Emojis to dump with (anderbot can only react with emoji once)
     private Map<IUser, DumpStatus> dumpStatus; // Users being dumped on
 
-    protected DumpCommand(String identifier) {
+    public DumpCommand(String identifier) {
         super(identifier);
         this.dumpEmoji = new HashMap<>();
         this.dumpStatus = new HashMap<>();
@@ -58,7 +58,6 @@ public class DumpCommand extends AbstractCommand implements Command {
                 } else if (!EmojiManager.isEmoji(args.get(2))) {
                     return CommandResponseCode.INVALID_EMOJI;
                 }
-
                 this.dumpAdd(targetUser, ReactionEmoji.of(args.get(2)));
                 break;
             case "clear":

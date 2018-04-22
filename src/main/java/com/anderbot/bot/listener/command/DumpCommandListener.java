@@ -4,7 +4,6 @@ import com.anderbot.bot.command.dump.DumpCommand;
 import com.anderbot.bot.util.CommandResponseCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import sx.blah.discord.api.events.EventSubscriber;
 import sx.blah.discord.api.events.IListener;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 

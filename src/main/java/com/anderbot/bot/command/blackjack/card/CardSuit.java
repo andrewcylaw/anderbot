@@ -2,14 +2,16 @@ package com.anderbot.bot.command.blackjack.card;
 
 public enum CardSuit {
 
-    DIAMONDS(":diamonds:"),
-    CLUBS   (":clubs:"),
-    HEARTS  (":heart:"),
-    SPADES  (":spades:");
+    DIAMONDS(1, ":diamonds:"),
+    CLUBS   (2, ":clubs:"),
+    HEARTS  (3, ":heart:"),
+    SPADES  (4, ":spades:");
 
+    private int value;
     private String emojiStr;
 
-    CardSuit(String emojiStr) {
+    CardSuit(int value, String emojiStr) {
+        this.value = value;
         this.emojiStr = emojiStr;
     }
 

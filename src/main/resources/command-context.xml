@@ -17,7 +17,7 @@
         <constructor-arg type="java.lang.String" value="${command.roll}"/>
     </bean>
 
-    <bean id="blackjackCommand" class="com.anderbot.bot.command.blackjack.card.BlackjackCommand">
+    <bean id="blackjackCommand" class="com.anderbot.bot.command.blackjack.BlackjackCommand">
         <constructor-arg>
             <list>
                 <value>${command.blackjack}</value>
@@ -48,6 +48,9 @@
             </list>
         </constructor-arg>
     </bean>
+
+    <!-- Miscellaneous -->
+    <bean id="blackjackGame" class="com.anderbot.bot.command.blackjack.BlackjackGame"/>
 
 
 </beans>

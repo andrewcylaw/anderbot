@@ -2,19 +2,19 @@ package com.anderbot.bot.command.blackjack.card;
 
 public class Card {
 
-    private CardSuit suit;
-    private CardValue value;
+    private CardSuit cardSuit;
+    private CardValue cardValue;
 
-    public Card(CardSuit suit, CardValue value) {
-        this.suit = suit;
-        this.value = value;
+    public Card(CardSuit cardSuit, CardValue value) {
+        this.cardSuit = cardSuit;
+        this.cardValue = value;
     }
 
-    public CardSuit getSuit() {
-        return suit;
+    public CardSuit getCardSuit() {
+        return cardSuit;
     }
 
-    public CardValue getValue() {
-        return value;
+    public CardValue getCardValue() {
+        return cardValue;
     }
 }

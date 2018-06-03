@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <context:property-placeholder location="classpath:command.properties" />
+
+    <!-- Individual event beans -->
+    <bean id="dumpAddEvent"   class="com.anderbot.bot.event.command.DumpEventDispatcher$DumpAddEvent"/>
+    <bean id="dumpClearEvent" class="com.anderbot.bot.event.command.DumpEventDispatcher$DumpClearEvent"/>
+    <bean id="dumpStartEvent" class="com.anderbot.bot.event.command.DumpEventDispatcher$DumpStartEvent"/>
+    <bean id="dumpStopEvent"  class="com.anderbot.bot.event.command.DumpEventDispatcher$DumpStopEvent"/>
+    <bean id="dumpCheckEvent" class="com.anderbot.bot.event.command.DumpEventDispatcher$DumpCheckEvent"/>
+
+
+    <util:map id="dumpEventCommandMap" map-class="java.util.HashMap">
+        <entry key="${command.dump.add}"   value-ref="dumpAddEvent"/>
+        <entry key="${command.dump.clear}" value-ref="dumpClearEvent"/>
+        <entry key="${command.dump.start}" value-ref="dumpStartEvent"/>
+        <entry key="${command.dump.stop}"  value-ref="dumpStopEvent"/>
+        <entry key="${command.dump.check}" value-ref="dumpCheckEvent"/>
+    </util:map>
+
+    <bean id="dumpEventDispatcher" class="com.anderbot.bot.event.command.DumpEventDispatcher">
+        <constructor-arg type="java.util.HashMap" ref="dumpEventCommandMap"/>
+    </bean>
+
+
+</beans>

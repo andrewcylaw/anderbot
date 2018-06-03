@@ -8,7 +8,7 @@ import sx.blah.discord.api.events.IListener;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 
 /**
- * Listens in on all events and checks if it has to dump.
+ * Listens in on all events and checks if it has to command.
  */
 @Component
 public class DumpCommandListener implements IListener<MessageReceivedEvent> {

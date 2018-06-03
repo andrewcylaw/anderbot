@@ -1,6 +1,5 @@
 package com.anderbot.bot.util;
 
-import com.vdurmont.emoji.EmojiManager;
 import sx.blah.discord.handle.obj.IGuild;
 import sx.blah.discord.handle.obj.IUser;
 
@@ -20,7 +19,7 @@ public class ChatUtils {
     // Note: UserId is of form <@123...>
     private static Long getUserIdFromMention(String userId) throws NumberFormatException {
         try {
-            return Long.parseLong(userId.substring(2, userId.length() - 1));
+            return Long.parseLong(userId.substring(3, userId.length() - 1));
         } catch (NumberFormatException e) {
             return null;
         }

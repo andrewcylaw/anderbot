@@ -6,7 +6,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
     <context:property-placeholder location="classpath:command.properties" />
-    <import resource="help-context.xml"/>
+    <import resource="dispatcher-context.xml"/>
 
     <!-- Individual command bean definitions -->
     <bean id="dumpCommand" class="com.anderbot.bot.command.dump.DumpCommand">
@@ -23,6 +23,9 @@
     </bean>
 
     <!-- Help command -->
+    <bean id="dumpHelp" class="com.anderbot.bot.message.help.DumpHelp"/>
+    <bean id="rollHelp" class="com.anderbot.bot.message.help.RollHelp"/>
+
     <util:map id="helpCommandMap" map-class="java.util.HashMap">
         <entry key="${command.dump}" value-ref="dumpHelp"/>
         <entry key="${command.roll}" value-ref="rollHelp"/>
@@ -44,5 +47,7 @@
             </list>
         </constructor-arg>
     </bean>
+
+
 
 </beans>

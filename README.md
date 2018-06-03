@@ -1,6 +1,20 @@
 # anderbot
 experimental discord bot
 
+## Code Structure
+- The core idea is to move all Discord commands to a properties file, and utilizing Spring proxying to automate most of the object instantiation. This aims to reduce the boilerplate code in each of the actual classes for commands.
+- The `command` package has classes for individual commands
+- The `event` package has custom events for parsing "sub-commands" and other arguments
+- The `message` package has nicely pre-formatted Discord embedded messages 
+#### Individual pieces
+- The main runner is responsible for authenticating the bot with Discord, registering event listeners, etc
+- The command handler is a generic class that parses user input into a command
+- The listener handler registers individual event listeners
+  - Mostly used for commands that don't necessarily have the `>` prefix
+- An event dispatcher parses any arguments that come after a root command
+  - (eg, `>dump add x y` - the `dump` command parses the initial `dump`, which fires off the handler for the `add` command using a dispatcher)
+   
+
 ## Roadmap
 In no particular order:
 - Improve how command statuses are passed

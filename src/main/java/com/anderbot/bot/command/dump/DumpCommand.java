@@ -2,17 +2,22 @@ package com.anderbot.bot.command.dump;
 
 import com.anderbot.bot.command.AbstractCommand;
 import com.anderbot.bot.command.Command;
+import com.anderbot.bot.event.CommandEvent;
+import com.anderbot.bot.event.command.DumpEventDispatcher;
 import com.anderbot.bot.util.BotUtils;
 import com.anderbot.bot.util.ChatUtils;
 import com.anderbot.bot.util.CommandResponseCode;
 import com.anderbot.bot.util.MessageUtils;
 import com.vdurmont.emoji.EmojiManager;
+import org.springframework.beans.factory.annotation.Autowired;
 import sx.blah.discord.api.events.Event;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 import sx.blah.discord.handle.impl.obj.ReactionEmoji;
 import sx.blah.discord.handle.obj.IGuild;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IUser;
+
+import static com.anderbot.bot.event.command.DumpEventDispatcher.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -26,7 +31,8 @@ import java.util.stream.Collectors;
  */
 public class DumpCommand extends AbstractCommand implements Command {
 
-    private Map<IUser, Set<ReactionEmoji>> dumpEmoji; // Emojis to dump with (anderbot can only react with emoji once)
+    private DumpEventDispatcher eventDispatcher;
+    private Map<IUser, Set<ReactionEmoji>> dumpEmoji; // Emojis to command with (anderbot can only react with emoji once)
     private Map<IUser, DumpStatus> dumpStatus; // Users being dumped on
 
     public DumpCommand(String identifier) {
@@ -51,29 +57,25 @@ public class DumpCommand extends AbstractCommand implements Command {
             return CommandResponseCode.INVALID_USER;
         }
 
-        switch(args.get(0).toLowerCase()) {
-            case "add":
-                if(args.size() < 3) {
-                    return CommandResponseCode.INVALID_COMMAND;
-                } else if (!EmojiManager.isEmoji(args.get(2))) {
-                    return CommandResponseCode.INVALID_EMOJI;
-                }
-                this.dumpAdd(targetUser, ReactionEmoji.of(args.get(2)));
-                break;
-            case "clear":
-                this.dumpClear(targetUser);
-                break;
-            case "start":
-                this.dumpStart(targetUser);
-                break;
-            case "stop":
-                this.dumpStop(targetUser);
-                break;
-            case "check":
-                this.dumpCheck(targetUser, messageReceivedEvent);
-                break;
-            default:
+        CommandEvent dumpCommandEvent = eventDispatcher.getEvent(args.get(0).toLowerCase());
+
+        if(dumpCommandEvent instanceof DumpAddEvent) {
+            if(args.size() < 3) {
                 return CommandResponseCode.INVALID_COMMAND;
+            } else if (!EmojiManager.isEmoji(args.get(2))) {
+                return CommandResponseCode.INVALID_EMOJI;
+            }
+            this.dumpAdd(targetUser, ReactionEmoji.of(args.get(2)));
+        } else if (dumpCommandEvent instanceof DumpClearEvent) {
+            this.dumpClear(targetUser);
+        } else if (dumpCommandEvent instanceof DumpStartEvent) {
+            this.dumpStart(targetUser);
+        } else if (dumpCommandEvent instanceof DumpStopEvent) {
+            this.dumpStop(targetUser);
+        } else if (dumpCommandEvent instanceof DumpCheckEvent) {
+            this.dumpCheck(targetUser, messageReceivedEvent);
+        } else {
+            return CommandResponseCode.INVALID_COMMAND;
         }
 
         return CommandResponseCode.OK;
@@ -118,6 +120,12 @@ public class DumpCommand extends AbstractCommand implements Command {
         } else {
             BotUtils.sendMessage(event.getChannel(), String.format("User [%s] is not being dumped on by any emojis at the moment. Why not add some? :clap:", user.getName()));
         }
+    }
+
+    // Spring DI
+    @Autowired
+    public void setEventDispatcher(DumpEventDispatcher eventDispatcher) {
+        this.eventDispatcher = eventDispatcher;
     }
 
 }

@@ -17,15 +17,6 @@
         <constructor-arg type="java.lang.String" value="${command.roll}"/>
     </bean>
 
-    <bean id="blackjackCommand" class="com.anderbot.bot.command.blackjack.BlackjackCommand">
-        <constructor-arg>
-            <list>
-                <value>${command.blackjack}</value>
-                <value>${command.bj}</value>
-            </list>
-        </constructor-arg>
-    </bean>
-
     <!-- Audio commands -->
     <bean id="playCommand" class="com.anderbot.bot.command.roll.RollCommand">
         <constructor-arg type="java.lang.String" value="${command.roll}"/>
@@ -49,14 +40,9 @@
                 <ref bean="rollCommand"/>
                 <ref bean="dumpCommand"/>
                 <ref bean="helpCommand"/>
-                <ref bean="blackjackCommand"/>
                 <ref bean="playCommand"/>
             </list>
         </constructor-arg>
     </bean>
-
-    <!-- Miscellaneous -->
-    <bean id="blackjackGame" class="com.anderbot.bot.command.blackjack.BlackjackGame"/>
-
 
 </beans>

@@ -26,6 +26,11 @@
         </constructor-arg>
     </bean>
 
+    <!-- Audio commands -->
+    <bean id="playCommand" class="com.anderbot.bot.command.roll.RollCommand">
+        <constructor-arg type="java.lang.String" value="${command.roll}"/>
+    </bean>
+
     <!-- Help command -->
     <util:map id="helpCommandMap" map-class="java.util.HashMap">
         <entry key="${command.dump}" value-ref="dumpHelp"/>
@@ -45,6 +50,7 @@
                 <ref bean="dumpCommand"/>
                 <ref bean="helpCommand"/>
                 <ref bean="blackjackCommand"/>
+                <ref bean="playCommand"/>
             </list>
         </constructor-arg>
     </bean>

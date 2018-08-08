@@ -1,5 +1,9 @@
 package com.anderbot.bot.command;
 
+import com.anderbot.bot.event.CommandEvent;
+import com.anderbot.bot.event.EventDispatcher;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -8,6 +12,7 @@ import java.util.List;
  */
 public abstract class AbstractCommand implements Command {
 
+    private EventDispatcher eventDispatcher;
     private List<String> identifiers;
 
     public AbstractCommand(String... identifiers) {
@@ -16,5 +21,14 @@ public abstract class AbstractCommand implements Command {
 
     public List<String> getIdentifiers() {
         return identifiers;
+    }
+    
+    public CommandEvent getCommandEvent(String command) {
+        return this.eventDispatcher.getCommandEvent(this.identifiers.get(0) + command);
+    }
+    
+    @Autowired
+    public void setEventDispatcher(EventDispatcher eventDispatcher) {
+        this.eventDispatcher = eventDispatcher;
     }
 }

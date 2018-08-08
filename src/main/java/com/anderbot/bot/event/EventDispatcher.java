@@ -1,7 +1,31 @@
 package com.anderbot.bot.event;
 
-public interface EventDispatcher {
+import org.springframework.stereotype.Component;
 
-    CommandEvent getEvent(String identifier);
+import java.util.Map;
+
+/**
+ * Verifies that the user "sub-command" is valid.
+ * (eg, for "dump add @user :emoji:", checks that "add" is a valid command)
+ */
+@Component
+public class EventDispatcher {
+    
+    private Map<String, CommandEvent> commandEventMap;
+    
+    public EventDispatcher(Map<String, CommandEvent> commandEventMap) {
+        this.commandEventMap = commandEventMap;
+    }
+
+    public CommandEvent getCommandEvent(String identifier) {
+        return this.commandEventMap.get(identifier);
+    }
+
+    // Individual events for each command
+    public static class DumpAddEvent   implements CommandEvent {}
+    public static class DumpClearEvent implements CommandEvent {}
+    public static class DumpStartEvent implements CommandEvent {}
+    public static class DumpStopEvent  implements CommandEvent {}
+    public static class DumpCheckEvent implements CommandEvent {}
 
 }

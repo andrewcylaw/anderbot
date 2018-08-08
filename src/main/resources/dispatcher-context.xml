@@ -8,23 +8,23 @@
     <context:property-placeholder location="classpath:command.properties" />
 
     <!-- Individual event beans -->
-    <bean id="dumpAddEvent"   class="com.anderbot.bot.event.command.DumpEventDispatcher$DumpAddEvent"/>
-    <bean id="dumpClearEvent" class="com.anderbot.bot.event.command.DumpEventDispatcher$DumpClearEvent"/>
-    <bean id="dumpStartEvent" class="com.anderbot.bot.event.command.DumpEventDispatcher$DumpStartEvent"/>
-    <bean id="dumpStopEvent"  class="com.anderbot.bot.event.command.DumpEventDispatcher$DumpStopEvent"/>
-    <bean id="dumpCheckEvent" class="com.anderbot.bot.event.command.DumpEventDispatcher$DumpCheckEvent"/>
+    <bean id="dumpAddEvent"   class="com.anderbot.bot.event.EventDispatcher$DumpAddEvent"/>
+    <bean id="dumpClearEvent" class="com.anderbot.bot.event.EventDispatcher$DumpClearEvent"/>
+    <bean id="dumpStartEvent" class="com.anderbot.bot.event.EventDispatcher$DumpStartEvent"/>
+    <bean id="dumpStopEvent"  class="com.anderbot.bot.event.EventDispatcher$DumpStopEvent"/>
+    <bean id="dumpCheckEvent" class="com.anderbot.bot.event.EventDispatcher$DumpCheckEvent"/>
 
 
-    <util:map id="dumpEventCommandMap" map-class="java.util.HashMap">
-        <entry key="${command.dump.add}"   value-ref="dumpAddEvent"/>
-        <entry key="${command.dump.clear}" value-ref="dumpClearEvent"/>
-        <entry key="${command.dump.start}" value-ref="dumpStartEvent"/>
-        <entry key="${command.dump.stop}"  value-ref="dumpStopEvent"/>
-        <entry key="${command.dump.check}" value-ref="dumpCheckEvent"/>
+    <util:map id="eventCommandMap" map-class="java.util.HashMap">
+        <entry key="#{'${command.dump}' + '${command.dump.add}'}"   value-ref="dumpAddEvent"/>
+        <entry key="#{'${command.dump}' + '${command.dump.clear}'}" value-ref="dumpClearEvent"/>
+        <entry key="#{'${command.dump}' + '${command.dump.start}'}" value-ref="dumpStartEvent"/>
+        <entry key="#{'${command.dump}' + '${command.dump.stop}'}"  value-ref="dumpStopEvent"/>
+        <entry key="#{'${command.dump}' + '${command.dump.check}'}" value-ref="dumpCheckEvent"/>
     </util:map>
 
-    <bean id="dumpEventDispatcher" class="com.anderbot.bot.event.command.DumpEventDispatcher">
-        <constructor-arg type="java.util.HashMap" ref="dumpEventCommandMap"/>
+    <bean id="eventDispatcher" class="com.anderbot.bot.event.EventDispatcher">
+        <constructor-arg type="java.util.Map" ref="eventCommandMap"/>
     </bean>
 
 

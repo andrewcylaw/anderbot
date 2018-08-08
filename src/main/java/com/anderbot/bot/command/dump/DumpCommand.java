@@ -3,7 +3,6 @@ package com.anderbot.bot.command.dump;
 import com.anderbot.bot.command.AbstractCommand;
 import com.anderbot.bot.command.Command;
 import com.anderbot.bot.event.CommandEvent;
-import com.anderbot.bot.event.command.DumpEventDispatcher;
 import com.anderbot.bot.util.BotUtils;
 import com.anderbot.bot.util.ChatUtils;
 import com.anderbot.bot.util.CommandResponseCode;
@@ -17,7 +16,7 @@ import sx.blah.discord.handle.obj.IGuild;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IUser;
 
-import static com.anderbot.bot.event.command.DumpEventDispatcher.*;
+import static com.anderbot.bot.event.EventDispatcher.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -31,7 +30,6 @@ import java.util.stream.Collectors;
  */
 public class DumpCommand extends AbstractCommand implements Command {
 
-    private DumpEventDispatcher eventDispatcher;
     private Map<IUser, Set<ReactionEmoji>> dumpEmoji; // Emojis to command with (anderbot can only react with emoji once)
     private Map<IUser, DumpStatus> dumpStatus; // Users being dumped on
 
@@ -57,7 +55,7 @@ public class DumpCommand extends AbstractCommand implements Command {
             return CommandResponseCode.INVALID_USER;
         }
 
-        CommandEvent dumpCommandEvent = eventDispatcher.getEvent(args.get(0).toLowerCase());
+        CommandEvent dumpCommandEvent = super.getCommandEvent(args.get(0).toLowerCase());
 
         if(dumpCommandEvent instanceof DumpAddEvent) {
             if(args.size() < 3) {
@@ -122,10 +120,5 @@ public class DumpCommand extends AbstractCommand implements Command {
         }
     }
 
-    // Spring DI
-    @Autowired
-    public void setEventDispatcher(DumpEventDispatcher eventDispatcher) {
-        this.eventDispatcher = eventDispatcher;
-    }
 
 }

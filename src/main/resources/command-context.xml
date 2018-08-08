@@ -18,8 +18,13 @@
     </bean>
 
     <!-- Audio commands -->
-    <bean id="playCommand" class="com.anderbot.bot.command.roll.RollCommand">
-        <constructor-arg type="java.lang.String" value="${command.roll}"/>
+    <bean id="playCommand" class="com.anderbot.bot.command.audio.PlayCommand">
+        <constructor-arg>
+            <list>
+                <value>${command.play}</value>
+                <value>${command.play2}</value>
+            </list>
+        </constructor-arg>
     </bean>
 
     <!-- Help command -->

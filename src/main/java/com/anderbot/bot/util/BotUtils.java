@@ -5,8 +5,11 @@ import sx.blah.discord.api.ClientBuilder;
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.handle.impl.obj.ReactionEmoji;
 import sx.blah.discord.handle.obj.IChannel;
+import sx.blah.discord.handle.obj.IGuild;
 import sx.blah.discord.handle.obj.IMessage;
+import sx.blah.discord.handle.obj.IVoiceChannel;
 import sx.blah.discord.util.DiscordException;
+import sx.blah.discord.util.MissingPermissionsException;
 import sx.blah.discord.util.RequestBuffer;
 
 /**
@@ -51,6 +54,21 @@ public class BotUtils {
                 e.printStackTrace();
             }
         });
+    }
+    
+    // Connects to the first available voice channel if not already connected to a voice channel
+    public static void connectToVoiceChannel(IGuild guild) {
+        if(guild.getVoiceChannels().stream().anyMatch(IVoiceChannel::isConnected)) {
+            return;
+        }
+        
+        for(IVoiceChannel voiceChannel : guild.getVoiceChannels()) {
+            try {
+                voiceChannel.join();
+            } catch (MissingPermissionsException e) {
+                // TODO - do something useful like logging
+            }
+        }
     }
 
 }

@@ -1,4 +1,4 @@
-package com.anderbot.bot.command.audio;
+package com.anderbot.bot.command.audio.audiocomponents;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.track.playback.AudioFrame;

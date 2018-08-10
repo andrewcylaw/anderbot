@@ -32,4 +32,4 @@ In no particular order:
 ## Changelog
 1.0-SNAPSHOT:
  - Initial version!
- - Added commands "dump", "help", "roll"
+ - Added commands "dump", "help", "roll", "play"

@@ -6,9 +6,7 @@
     <import resource="command-context.xml"/>
 
     <!-- Individual listener bean definitions -->
-    <bean id="dumpCommandListener" class="com.anderbot.bot.listener.command.DumpCommandListener">
-        <constructor-arg ref="dumpCommand"/>
-    </bean>
+    <bean id="dumpCommandListener" class="com.anderbot.bot.listener.command.DumpCommandListener"/>
 
     <bean id="mainEventListener" class="com.anderbot.bot.listener.MainEventListener">
         <constructor-arg ref="commandHandler"/>

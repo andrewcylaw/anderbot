@@ -11,6 +11,7 @@ public enum CommandResponseCode {
     INVALID_EMOJI   (":x:**[error]** Invalid emoji given."),
     INVALID_HELP    (":x:**[error]** Invalid command given."),
     INVALID_NUMBER  (":x:**[error]** Invalid number given."),
+    MISSING_TRACK   (":x:**[error]** Please specify a track."),
     NOT_A_COMMAND   (""),
     OK              ("");
 

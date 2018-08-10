@@ -6,20 +6,19 @@ import com.anderbot.bot.event.CommandEvent;
 import com.anderbot.bot.util.BotUtils;
 import com.anderbot.bot.util.ChatUtils;
 import com.anderbot.bot.util.CommandResponseCode;
-import com.anderbot.bot.util.MessageUtils;
 import com.vdurmont.emoji.EmojiManager;
-import org.springframework.beans.factory.annotation.Autowired;
 import sx.blah.discord.api.events.Event;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 import sx.blah.discord.handle.impl.obj.ReactionEmoji;
-import sx.blah.discord.handle.obj.IGuild;
-import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IUser;
 
-import static com.anderbot.bot.event.EventDispatcher.*;
-
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
+
+import static com.anderbot.bot.event.EventDispatcher.*;
 
 /**
  * "Dumps" on a specific user by reacting to every message that they post.
@@ -41,29 +40,26 @@ public class DumpCommand extends AbstractCommand implements Command {
 
     @Override
     public CommandResponseCode handle(Event event) {
-        MessageReceivedEvent messageReceivedEvent = (MessageReceivedEvent) event;
-        IMessage message = messageReceivedEvent.getMessage();
-        IGuild guild = message.getGuild();
-        List<String> args = MessageUtils.getArgs(message);
+        super.parseMessageReceivedEvent(event);
 
-        if(args.size() < 2) {
+        if(getArgs().size() < 2) {
             return CommandResponseCode.INVALID_COMMAND;
         }
 
-        IUser targetUser = ChatUtils.getUserFromMention(guild, args.get(1));
+        IUser targetUser = ChatUtils.getUserFromMention(getGuild(), getArgs().get(1));
         if(targetUser == null) {
             return CommandResponseCode.INVALID_USER;
         }
 
-        CommandEvent dumpCommandEvent = super.getCommandEvent(args.get(0).toLowerCase());
+        CommandEvent dumpCommandEvent = super.getCommandEvent(getArgs().get(0).toLowerCase());
 
         if(dumpCommandEvent instanceof DumpAddEvent) {
-            if(args.size() < 3) {
+            if(getArgs().size() < 3) {
                 return CommandResponseCode.INVALID_COMMAND;
-            } else if (!EmojiManager.isEmoji(args.get(2))) {
+            } else if (!EmojiManager.isEmoji(getArgs().get(2))) {
                 return CommandResponseCode.INVALID_EMOJI;
             }
-            this.dumpAdd(targetUser, ReactionEmoji.of(args.get(2)));
+            this.dumpAdd(targetUser, ReactionEmoji.of(getArgs().get(2)));
         } else if (dumpCommandEvent instanceof DumpClearEvent) {
             this.dumpClear(targetUser);
         } else if (dumpCommandEvent instanceof DumpStartEvent) {
@@ -71,7 +67,7 @@ public class DumpCommand extends AbstractCommand implements Command {
         } else if (dumpCommandEvent instanceof DumpStopEvent) {
             this.dumpStop(targetUser);
         } else if (dumpCommandEvent instanceof DumpCheckEvent) {
-            this.dumpCheck(targetUser, messageReceivedEvent);
+            this.dumpCheck(targetUser, getMessageReceivedEvent());
         } else {
             return CommandResponseCode.INVALID_COMMAND;
         }

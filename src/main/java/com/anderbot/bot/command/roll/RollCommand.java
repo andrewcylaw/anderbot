@@ -4,12 +4,9 @@ import com.anderbot.bot.command.AbstractCommand;
 import com.anderbot.bot.command.Command;
 import com.anderbot.bot.util.BotUtils;
 import com.anderbot.bot.util.CommandResponseCode;
-import com.anderbot.bot.util.MessageUtils;
 import sx.blah.discord.api.events.Event;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
-import sx.blah.discord.handle.obj.IMessage;
 
-import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -32,24 +29,22 @@ public class RollCommand extends AbstractCommand implements Command {
 
     @Override
     public CommandResponseCode handle(Event event) {
-        MessageReceivedEvent messageReceivedEvent = (MessageReceivedEvent) event;
-        IMessage message = messageReceivedEvent.getMessage();
-        List<String> args = MessageUtils.getArgs(message);
+        super.parseMessageReceivedEvent(event);
 
-        switch(args.size()) {
+        switch(getArgs().size()) {
             case 0:
-                this.rollDice(DEFAULT_DICE_SIZE, DEFAULT_NUM_ROLLS, messageReceivedEvent);
+                this.rollDice(DEFAULT_DICE_SIZE, DEFAULT_NUM_ROLLS, getMessageReceivedEvent());
                 break;
             case 1:
                 try {
-                    this.rollDice(Integer.parseInt(args.get(0)), DEFAULT_NUM_ROLLS, messageReceivedEvent);
+                    this.rollDice(Integer.parseInt(getArgs().get(0)), DEFAULT_NUM_ROLLS, getMessageReceivedEvent());
                 } catch (NumberFormatException e) {
                     return CommandResponseCode.INVALID_NUMBER;
                 }
                 break;
             case 2:
                 try {
-                    this.rollDice(Integer.parseInt(args.get(0)), Integer.parseInt(args.get(1)), messageReceivedEvent);
+                    this.rollDice(Integer.parseInt(getArgs().get(0)), Integer.parseInt(getArgs().get(1)), getMessageReceivedEvent());
                 } catch (NumberFormatException e) {
                     return CommandResponseCode.INVALID_NUMBER;
                 }

@@ -12,6 +12,7 @@ public enum CommandResponseCode {
     INVALID_HELP    (":x:**[error]** Invalid command given."),
     INVALID_NUMBER  (":x:**[error]** Invalid number given."),
     MISSING_TRACK   (":x:**[error]** Please specify a track."),
+    MISSING_CHANNEL (":x:**[error]** Please specify a channel to designate."),
     NOT_A_COMMAND   (""),
     OK              ("");
 

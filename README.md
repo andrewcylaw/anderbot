@@ -28,6 +28,7 @@ In no particular order:
 - Hard commands: bilge dice, othello, stock market, blackjack, other gambling bots, full rpg?
 - Stats
 - osu! api integration (?)
+- Pull audio commands to common interface for autowired dao? Probably over-engineering at that point...
 
 ## Other Small things
 - Dumping on for x amount of messages

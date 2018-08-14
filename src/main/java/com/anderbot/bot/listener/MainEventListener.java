@@ -24,7 +24,6 @@ public class MainEventListener implements IListener<MessageReceivedEvent> {
 
     private CommandHandler commandHandler;
 
-    @Autowired
     private MainEventListener(CommandHandler commandHandler) {
         this.commandHandler = commandHandler;
     }

@@ -27,5 +27,10 @@ public class EventDispatcher {
     public static class DumpStartEvent implements CommandEvent {}
     public static class DumpStopEvent  implements CommandEvent {}
     public static class DumpCheckEvent implements CommandEvent {}
+    
+    public static class AudioPlayEvent implements CommandEvent {}
+    public static class AudioQueueEvent implements CommandEvent {}
+    public static class AudioSearchEvent implements CommandEvent {}
+    public static class AudioDesignateChannelEvent implements CommandEvent {}
 
 }

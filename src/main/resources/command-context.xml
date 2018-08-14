@@ -18,6 +18,8 @@
     </bean>
 
     <!-- Audio commands -->
+    <bean id="audioDao" class="com.anderbot.bot.command.audio.AudioDao"/>
+    
     <bean id="playCommand" class="com.anderbot.bot.command.audio.PlayCommand">
         <constructor-arg>
             <list>

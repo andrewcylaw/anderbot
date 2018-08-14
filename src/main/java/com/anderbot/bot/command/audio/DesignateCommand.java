@@ -10,39 +10,33 @@ import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import org.springframework.beans.factory.annotation.Autowired;
 import sx.blah.discord.api.events.Event;
+import sx.blah.discord.handle.obj.IGuild;
 
-public class PlayCommand extends AbstractCommand implements Command {
+import java.util.HashMap;
+import java.util.Map;
 
-    private final AudioPlayerManager audioManager;
+/**
+ * "Designates" a text channel for convenience of parsing audio commands.
+ * After a text channel is "designated", the >___ commands are not needed anymore.
+ * 
+ * The goal is to have some basic logic that parses tracks automatically, show queues etc,
+ * without needing to type >___ all the time.
+ */
+public class DesignateCommand extends AbstractCommand implements Command {
+
     private AudioDao audioDao;
-
-    public PlayCommand(String... identifiers) {
+    
+    public DesignateCommand(String... identifiers) {
         super(identifiers);
-        audioManager = new DefaultAudioPlayerManager();
-
-        AudioSourceManagers.registerRemoteSources(audioManager);
-        AudioSourceManagers.registerLocalSource(audioManager);
     }
 
     @Override
     public CommandResponseCode handle(Event event) {
-        return play(event);
-    }
-    
-    public CommandResponseCode play(Event event) {
         super.parseMessageReceivedEvent(event);
-
+        
         if(getArgs().isEmpty()) {
-            return CommandResponseCode.MISSING_TRACK;
+            return CommandResponseCode.MISSING_CHANNEL;
         }
-
-        // One player per guild
-        GuildMusicManager manager = audioDao.addGuildMusicManager(getGuild().getLongID(), audioManager);
-        getGuild().getAudioManager().setAudioProvider(manager.getAudioProvider());
-        String trackUrl = getArgs().get(0);
-
-        audioManager.loadItemOrdered(manager, trackUrl, new DefaultAudioLoadResultHandler(getChannel(), manager, trackUrl));
-
 
         return CommandResponseCode.OK;
     }
@@ -51,5 +45,4 @@ public class PlayCommand extends AbstractCommand implements Command {
     public void setAudioDao(AudioDao audioDao) {
         this.audioDao = audioDao;
     }
-
 }
